@@ -1,66 +1,91 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
 export default function Home() {
+  const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleStart = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      // Create student
+      const displayName = name.trim() || 'Anonymous';
+      const { data: student, error: studentError } = await supabase
+        .from('students')
+        .insert([{ display_name: displayName }])
+        .select()
+        .single();
+
+      if (studentError) throw studentError;
+
+      // Create session
+      const { data: session, error: sessionError } = await supabase
+        .from('sessions')
+        .insert([{ student_id: student.id }])
+        .select()
+        .single();
+
+      if (sessionError) throw sessionError;
+
+      // Store in localStorage for the practice session to pick up
+      localStorage.setItem('fractionBuddySession', JSON.stringify({
+        studentId: student.id,
+        sessionId: session.id,
+        displayName: student.display_name
+      }));
+
+      // Navigate to practice
+      router.push('/practice');
+    } catch (error) {
+      console.error('Error starting session:', error);
+      alert('Could not start session. Please try again.');
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div style={{ maxWidth: '400px', margin: '15vh auto', padding: '2rem' }} className="glass" style={{ borderRadius: 'var(--radius-xl)' }}>
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <h1 style={{ marginBottom: '0.5rem', color: 'var(--text-main)' }}>Conceptual Lab</h1>
+        <p style={{ color: 'var(--text-muted)' }}>Focus session: Logic & Comparison</p>
+      </div>
+
+      <form onSubmit={handleStart} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div>
+          <label htmlFor="name" style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+            Workspace Identity (Optional)
+          </label>
+          <input
+            id="name"
+            type="text"
+            className="input-field"
+            placeholder="Enter a handle or stay anonymous"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            disabled={loading}
+          />
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        <button
+          type="submit"
+          className="btn-accent"
+          disabled={loading}
+          style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}
+        >
+          {loading ? 'Initializing...' : 'Begin Session'}
+          {!loading && <span>→</span>}
+        </button>
+      </form>
+
+      <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.75rem', color: 'var(--card-border)' }}>
+        System v1.0.42 • Secure Connection Evaluated
+      </div>
     </div>
   );
 }

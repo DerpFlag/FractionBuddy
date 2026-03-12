@@ -1,24 +1,14 @@
 export default function FractionDisplay({ n, d }) {
     return (
-        <div style={{
-            display: 'inline-flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '3rem',
-            fontWeight: '600',
-            lineHeight: '1',
-            padding: '1rem',
+        <div className="fraction-display" style={{
+            fontSize: '4.5rem',
+            padding: '0 1rem',
+            textShadow: '0 4px 20px rgba(0,0,0,0.5)',
+            color: 'var(--text-main)',
         }}>
-            <div style={{ paddingBottom: '0.2rem' }}>{n}</div>
-            <div style={{
-                width: '100%',
-                height: '4px',
-                backgroundColor: 'var(--text-main)',
-                borderRadius: '2px',
-                margin: '0.1rem 0'
-            }}></div>
-            <div style={{ paddingTop: '0.2rem' }}>{d}</div>
+            <div style={{ paddingBottom: '0.3rem' }}>{n}</div>
+            <div className="fraction-line"></div>
+            <div style={{ paddingTop: '0.4rem' }}>{d}</div>
         </div>
     );
 }

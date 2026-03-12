@@ -1,0 +1,46 @@
+FractionBuddy
+High School Fraction Intervention MVP
+This document synthesizes the psychological, emotional, and functional requirements for a high school math intervention tool. It is intended to guide an AI agent in making design decisions that respect the unique sensitivities of older students working on elementary-level skills.
+--------------------------------------------------------------------------------
+1. Audience Identity & Skill Gap
+The Profile: Bright high school students (9th and 10th graders) who are blocked from progressing into Algebra because they lack foundational 4th-grade fraction comparison skills.
+The Knowledge Gap: These students often "don't know what they don't know". They may believe they understand fractions but rely on incorrect mental shortcuts—such as assuming a larger denominator always means a larger fraction or only comparing numerators.
+The Skill Focus: The intervention must address four distinct comparison types: same denominator, same numerator, comparing against benchmarks (like 1/2), and unlike fractions.
+2. The Psychological Landscape: Shame and Stigma
+Internalized Failure: Many of these students have been told they are "bad at math" for years and have internalized this identity, leading them to "run out the clock" until graduation.
+The Shame Factor: Students carry deep shame because they know they are working on "kid stuff". This manifests as physical withdrawal (putting heads down, shrinking) when fractions are introduced.
+Social Vulnerability: The absolute greatest risk is peer discovery. A student may be making real progress but will stop immediately if a friend sees them doing what looks like elementary-level work.
+The "Denial" Defense: To protect their ego, some students will claim they "already know this" and are just "rushing" or "making dumb mistakes".
+3. Motivational Drivers: Proof Over Play
+The Need for Tangible Progress: These students are skeptical of "gamification" (leaderboards, XP, rewards), which can feel patronizing. Instead, they respond to proof of growth. Seeing a data-driven comparison of their performance (e.g., "Last week you got 4/10, today you got 7/10") is a powerful motivator.
+Momentum: Simple mechanics like streak counters and progress bars are effective for maintaining momentum without being distracting.
+Autonomy: Students are more likely to engage if the tool doesn't feel like a "special" intervention group, which can feel stigmatizing.
+4. Non-Obvious Design Considerations
+An AI agent unfamiliar with this specific demographic might default to "educational" or "gamified" tropes. To succeed, the design must adhere to these directives:
+Aesthetic Maturity (The "Anti-Kiddie" Rule):
+Avoid: Bright "primary" colors, cartoon characters, playful fonts, or animations that feel juvenile.
+Include: A "mature" UI that looks like a high-level productivity tool or a standard high school app. If it looks like it was made for a 10-year-old, they will refuse to use it.
+Implicit Diagnostic:
+Do not start with a formal, scary "Diagnostic Test". Instead, "fold" the assessment into the initial practice flow. The system should use the first few problems to identify gaps behind the scenes.
+Instructional Integration (Drill that Teaches):
+The experience should feel like a "drill" where they are "just doing problems".
+When a student gets a problem wrong, the system must immediately provide a strategy-based visual model (number lines, worked examples) specific to that error type. It is not enough to just show the "right answer".
+Discretion by Design:
+The UI should be designed so that a casual observer (a peer walking by) cannot immediately tell the student is doing 4th-grade math. Minimalist layouts that focus on the "problem" rather than "level 1: fractions" titles are preferred.
+Efficiency and Fluency:
+The ultimate goal is to move the student from "reasoning through each step" to "internalized fluency" where they can solve comparisons in under 10 seconds.
+5. MVP Feature Priority
+Adaptive Practice Flow: The core experience where difficulty adjusts based on performance.
+Embedded Strategy Instruction: Immediate, visual feedback for incorrect answers.
+Basic Progress Tracking: A simple streak counter and progress bar to provide a sense of momentum.
+Discreet, Mature UI: High-fidelity, professional-looking interface to mitigate social shame.
+--------------------------------------------------------------------------------
+UX Approach to follow: The "Conceptual Lab" (Strategy-First Exploration)
+Core Idea and Mechanics: This philosophy rejects the idea of "drilling" and instead treats fraction comparison as a series of logic puzzles. The focus is on the "why" rather than the "what."
+The Mechanic: Students don't just pick ">" or "<". They might be asked to "Prove it" by dragging fractions onto a number line or selecting the correct visual benchmark (e.g., "Is this closer to 0 or 1/2?").
+Active Diagnostics: Instead of a hidden diagnostic, the app presents "Challenge Problems" that are designed to expose common mental shortcuts, like assuming a larger denominator means a larger fraction.
+Strategy Feedback: The "instruction" is the core of the experience. Feedback isn't a "correction" but a "strategy reveal" that uses interactive visual models.
+Why it Suits the Audience
+Disrupting Shortcuts: It forces students to stop using incorrect mental "shortcuts" (comparing only numerators) by making them engage with the visual concept of the fraction.
+Confidence Building: By mastering the "logic" behind the math, students can move away from the identity of being "bad at math".
+Engagement: Frames the work as "problem-solving" rather than "remedial 4th-grade math," which feels more age-appropriate.
